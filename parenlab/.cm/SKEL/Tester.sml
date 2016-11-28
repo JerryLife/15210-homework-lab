@@ -1,0 +1,2 @@
+Skeleton 5
+aä¢Tester"h7egp1d"StudentTestSuite"eçð±ä¢ArrayParenPackage"Cf8d"Seq"d"List"d"String"Cÿd"Tests"d"Checker"d"StringElt"d"Logger"Nad"BF"jè±áä¢P"ÿ$gp1e"MkBruteForcePD"ad"DC"jÿ‚gp1e"MkDivideAndConquerPD"ad"SQ"jÿ‚gp1e"MkSequentialPD"ad"OutElt"jh1ad"Elt"gp1d"IntElt"gp1e"MkOptionElt"N
