@@ -4,9 +4,35 @@ struct
   open P
   open Seq
 
-  (* Remove this line when you're done. *)
-  exception NotYetImplemented
-
   fun parenDist (parens : paren seq) : int option =
-      raise NotYetImplemented
+  	let
+      fun parenMatch p =
+		let
+		fun pm ((NONE, _) | (SOME 0, CPAREN)) = NONE
+			| pm (SOME c, CPAREN) = SOME (c - 1)
+			| pm (SOME c, OPAREN) = SOME (c + 1)
+		in
+			iter pm (SOME 0) p = (SOME 0)
+		end
+	  val max = NONE
+	  fun check1 i = 
+	  	if i = length parens then NONE
+	  	else
+	  	  let
+	  		fun check2 j = 
+	  			if j = length parens then NONE
+	  			else
+	  			  let
+	  			  	val s = subseq parens (i,j-i+1)
+	  			  in
+	  				if parenMatch s then Option210.intMax(SOME(length s - 2), max)
+	  				else check2 (j+1)
+	  			  end
+	  	  in
+	  		Option210.intMax(check1 (i+1), check2 (i+1))
+	  	  end
+  	in
+  		if not (parenMatch parens) then NONE
+  		else check1 0
+  	end    
 end
