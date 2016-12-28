@@ -15,17 +15,17 @@ struct
 			iter pm (SOME 0) p = (SOME 0)
 		end
 	  val max = NONE
-	  fun check1 i = 
+	  fun check1 i = (*First Loop*)
 	  	if i = length parens then NONE
 	  	else
 	  	  let
-	  		fun check2 j = 
+	  		fun check2 j = (*Second Loop*)
 	  			if j = length parens then NONE
 	  			else
 	  			  let
-	  			  	val s = subseq parens (i,j-i+1)
+	  			  	val s = subseq parens (i, j-i+1)
 	  			  in
-	  				if parenMatch s then Option210.intMax(SOME(length s - 2), max)
+	  				if parenMatch s then Option210.intMax(SOME (length s - 2), max)
 	  				else check2 (j+1)
 	  			  end
 	  	  in
@@ -34,5 +34,5 @@ struct
   	in
   		if not (parenMatch parens) then NONE
   		else check1 0
-  	end    
+  	end
 end
