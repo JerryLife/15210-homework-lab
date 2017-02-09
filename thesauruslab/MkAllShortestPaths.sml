@@ -16,8 +16,19 @@ struct
    refers to the number of vertice and the num-
    ber of edges*)
   type asp = (vertex seq seq) table
-  (*Each vertex sequence is a shortest path, like
-    {(a,<b,c,d>),(e,<f,g>),...}*)
+  (*Each vertex sequence is a shortest path, and
+  each parent vretex has several shortest paths
+  like
+    {(a,<<b,c,d>>),(e,<<f,g,h>,<f,c,h>>),...}
+    or
+    |v1 -> <<a,b,c,d,...,v1>
+    |       <a,g,c,d,...,v1>>
+    |---------------------------
+    |v2 -> <<a,g,h,...,v2>>
+    |---------------------------
+    |v3 -> ...
+    in which all the paths start at original vertex
+    'a' and end at the key vertex vn*)
 
   (* Task 2.1 *)
   fun makeGraph (E : edge seq) : graph =
@@ -77,5 +88,5 @@ struct
 
   (* Task 2.5 *)
   fun report (A : asp) (v : vertex) : vertex seq seq =
-    getOpt(Table.find A v, singleton (Seq.empty ()))
+    getOpt(Table.find A v, Seq.empty ())
 end
