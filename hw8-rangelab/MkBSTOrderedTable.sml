@@ -13,9 +13,6 @@ struct
   structure Key = Tree.Key
   type key = Key.t
 
-  (* Remember, type 'a table = 'a Tree.bst *)
-  exception NYI
-
   fun first (T : 'a table) : (key * 'a) option =
     case expose T 
       of NONE => NONE

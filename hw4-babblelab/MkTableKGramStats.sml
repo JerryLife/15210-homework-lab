@@ -18,23 +18,32 @@ struct
 
   fun makeStats (corpus : string) (maxK : int) : kgramstats =
       let
+        (*Get all the words in a sequence ignoring '.' and ' ' which are not alpha or number*)
         val words = tokens (not o Char.isAlphaNum) corpus
+
+        (*Form the basic of the table*)
         fun make_table words' maxK' =
           if maxK' = 0 then 
             map (fn s => (empty (), s)) words'
           else
             let
-              val keys = tabulate (fn i => subseq words' (i,maxK')) (length words' - maxK')
+              (*Bound each word with maxK' words following. And add them to a sequence*)
+              fun make_keys i = subseq words' (i,maxK')
+              val keys = tabulate make_keys (length words' - maxK')
               val after = drop (words', maxK')
+              val rst = append (make_table words' (maxK'-1), zip keys after)
             in
-              append(make_table words' (maxK'-1), zip keys after)
+              rst
             end
+
+        (*Use the data above to form the kgramstats*)
         val table_data = make_table words maxK
         val table_demo = collect (collate String.compare) table_data
         val counts = map (fn s => histogram String.compare (#2 s)) table_demo
         val keys = map (fn s => (#1 s)) table_demo
+        val ks = (Table.fromSeq (zip keys counts), maxK)
       in
-        (Table.fromSeq (zip keys counts), maxK)
+        ks
       end
 
   fun lookupExts (stats : kgramstats) (kgram : kgram) : (token * int) seq =
