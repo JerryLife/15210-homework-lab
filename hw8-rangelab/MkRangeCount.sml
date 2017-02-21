@@ -11,9 +11,6 @@ struct
   (* Use this to compare x- or y-values. *)
   val compareKey : (Key.t * Key.t) -> order = Key.compare
 
-  (* Remove this before submitting! *)
-  exception NYI
-
   (* Define this yourself *)
   type countTable = unit table table
 
