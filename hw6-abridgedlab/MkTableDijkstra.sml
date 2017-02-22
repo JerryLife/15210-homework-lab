@@ -4,6 +4,7 @@ functor MkTableDijkstra(structure Table : TABLE
                         structure PQ : PRIORITY_QUEUE
                           where type Key.t = real) =
 struct
+  exception SegmentFault
   structure Table = Table
   structure Set = Table.Set
   structure Seq = Set.Seq
@@ -24,6 +25,8 @@ struct
               of NONE => Table.empty ()
                | SOME nbr => nbr
 
+(*D: table that stores final results*)
+(*Q: tmp results in pq*)
         fun dijkstra' D Q =
             case PQ.deleteMin Q
               of (NONE, _) => D
@@ -32,7 +35,7 @@ struct
                    of SOME _ => dijkstra' D Q'
                     | NONE =>
                       let
-                        val insert = Table.insert (fn (x, _) => x)
+                        val insert = Table.insert (fn _ => raise SegmentFault)
                         val D' = insert (v, d) D
                         fun relax (q, (u, w)) = PQ.insert (d+w, u) q
                         val Q'' = Table.iter relax Q' (N v)

@@ -3,7 +3,13 @@ struct
   type t = Real.real
 
   val default = 0.0
-  val equal = Real.==
+  fun equal (x,y)= 
+    let 
+      val ERROR = 0.000001
+    in
+      Real.abs(x-y) < ERROR
+    end
+
   val compare = Real.compare
   val toString = Real.toString
   fun hash(v) = 

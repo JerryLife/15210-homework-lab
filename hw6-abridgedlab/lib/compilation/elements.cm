@@ -5,6 +5,7 @@ Group
   structure RealElt
   structure IntElt
   structure StringElt
+  structure UnitElt
 
   functor MkListElt
   functor MkOptionElt
@@ -22,6 +23,7 @@ is
   ../elements/RealElt.sml
   ../elements/IntElt.sml
   ../elements/StringElt.sml
+  ../elements/UnitElt.sml
 
   ../elements/MkOptionElt.sml
   ../elements/MkTripleElt.sml

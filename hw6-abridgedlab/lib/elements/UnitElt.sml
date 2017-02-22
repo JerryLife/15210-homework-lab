@@ -1,12 +1,12 @@
 structure UnitElt : ELEMENT =
 struct
-  type t = unit
+  type t = int->real
 
   exception NYI
 
-  val default = ()
-  val equal = true
+  val default = Real.fromInt
+  fun equal (x,y) = true
   fun compare (x,y) = raise NYI
   fun hash x = raise NYI
-  fun toString (_ : t) = "()"
+  fun toString (_ : t) = "unit"
 end
