@@ -23,7 +23,8 @@ struct
         (collect cmp (map (fn a => (a, ())) s))
 
   fun choose (hist : 'a hist) (p : real) : 'a =
-    let
+    if p > 1.0 then raise Range
+    else let
       fun f_sum ((c1, v1), (c2, v2)) = (c2, v1 + v2)
       val freq = scani f_sum (#1 (nth hist 0), 0) hist
       val all_freq = #2 (nth freq (length freq - 1))

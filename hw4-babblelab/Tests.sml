@@ -5,10 +5,18 @@ struct
   val corpus = TextIO.inputAll (TextIO.openIn "corpus.txt")
 
   val testsChoose : (((string * int) list) * real) list  = [
-    ([], 1.2),
+    (*Empty sequence*)
+    ([], 0.2),
+    (*Out of right range*)
+    ([("test", 2), ("awesome", 2)], 1.5),
+    (*Out of left range*)
+    ([("test", 2), ("awesome", 2)], ~0.1),
+    (*One string only*)
     ([("test", 10)], 0.5),
+    (*Exactly equal*)
     ([("test", 2), ("awesome", 2)], 0.5),
     ([("yay", 1), ("woah", 2), ("oh", 3), ("yup", 4)], 0.47),
+    (*Try something longer*)
     ([("yay", 1), ("woah", 2), ("oh", 3), ("yup", 4), ("hello", 3), ("bye", 4)], 0.56)
   ]
 
@@ -19,12 +27,20 @@ struct
    * corpuses will not be submitted. *)
   val testsKGramStats : ((string * int) * (string list)) list = [
     ((corpus, 5),
-        ["direction",
+        [(*Try some single words*)
+        "direction",
          "time",
+         (*Try some multiple words*)
          "direction of time",
          "would write",
          "What Eddington says about",
-         ""])
+         (*See if special punctuation mark matters*)
+         "to this",
+         (*The empty should map to a hist made of all words*)
+         "",
+         (*Try a word not existing in the corpus*)
+         "Encryption"
+         ])
   ]
 
 
